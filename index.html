@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ide Pendiri Bangsa tentang Dasar Negara</title>
+  <style>
+    :root {
+      --accent: #2563eb;
+      --accent-light: #3b82f6;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .hero {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(8px) brightness(0.6);
+      transform: scale(1.05);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    header .logo {
+      width: 70px;
+      height: 70px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      font-size: 26px;
+      margin: 0;
+      color: white;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      color: #e5e7eb;
+      font-size: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(20px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+
+    .founders {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .founder {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #f3f4f6;
+      border-radius: var(--radius);
+      padding: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .founder:hover { transform: translateY(-4px); }
+
+    .founder img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #ddd;
+    }
+
+    .founder h3 {
+      margin: 0;
+      font-size: 17px;
+      color: var(--accent);
+    }
+
+    .founder p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .timeline {
+      margin-top: 18px;
+      border-left: 3px solid var(--accent-light);
+      padding-left: 16px;
+    }
+
+    .timeline .item {
+      position: relative;
+      padding: 10px 0;
+    }
+
+    .timeline .dot {
+      position: absolute;
+      left: -26px;
+      top: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.2);
+    }
+
+    .timeline strong {
+      color: var(--accent);
+    }
+
+    .timeline small {
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .sidebar .preview-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      background: #eee;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      background: var(--accent-light);
+      color: white;
+      padding: 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+    }
+
+    .mindmap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .mm-node {
+      background: white;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      transition: background 0.3s;
+    }
+
+    .mm-node:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #1e40af; }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .img-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .team {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f3f4f6;
+      border-radius: var(--radius);
+    }
+
+    .team h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .team ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 8px 0 0;
+    }
+
+    .team li {
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <img src="images/bg.jpg" alt="background">
+  </div>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <header>
+      <div class="logo">ID</div>
+      <div>
+        <h1>Ide Pendiri Bangsa tentang Dasar Negara</h1>
+        <p>Ringkasan gagasan Soekarno, Hatta, Moh. Yamin, dan Supomo</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <h2>Pengertian</h2>
+          <p>Dasar negara adalah fondasi utama yang menjadi pedoman dalam penyelenggaraan kehidupan berbangsa dan bernegara. Di Indonesia, dasar negara dirumuskan melalui perdebatan panjang oleh para pendiri bangsa. Proses ini melibatkan gagasan dari tokoh-tokoh besar yang memiliki visi berbeda, tetapi bertujuan sama: mewujudkan negara merdeka yang adil, bersatu, dan berdaulat.</p>
+        </section>
+
+        <section class="card" style="margin-top:18px">
+          <h2>Contoh Singkat Ide Para Tokoh</h2>
+          <div class="founders">
+            <div class="founder">
+              <img src="images/soekarno.jpg" alt="Soekarno">
+              <div>
+                <h3>Ir. Soekarno</h3>
+                <p>Merumuskan konsep Pancasila yang terdiri dari lima sila. Contoh: <em>Persatuan Indonesia</em> sebagai dasar menjaga keutuhan bangsa.</p>
+              </div>
+            </div>
+
+            <div class="founder">
+              <img src="images/hatta.jpg" alt="Mohammad Hatta">
+              <div>
+                <h3>Drs. Mohammad Hatta</h3>
+                <p>Mengusulkan demokrasi berbasis musyawarah mufakat. Contoh: sidang-sidang BPUPKI yang mengutamakan diskusi bersama untuk mufakat.</p>
+              </div>
+            </div>
+
+            <div class="founder">
+              <img src="images/yamin.jpg" alt="Mohammad Yamin">
+              <div>
+                <h3>Mohammad Yamin</h3>
+                <p>Mengajukan lima asas, di antaranya peri-kebangsaan dan peri-kemanusiaan. Contoh: pentingnya menjaga martabat manusia Indonesia.</p>
+              </div>
+            </div>
+
+            <div class="founder">
+              <img src="images/supomo.jpg" alt="Supomo">
+              <div>
+                <h3>Mr. Supomo</h3>
+                <p>Mendukung negara integralistik. Contoh: negara sebagai penyatu seluruh kepentingan rakyat, bukan hanya individu.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="item"><span class="dot"></span><strong>1945-06-01</strong> <small>Pidato Soekarno tentang Pancasila</small></div>
+            <div class="item"><span class="dot"></span><strong>1945-06-10</strong> <small>Sidang BPUPKI: Paparan gagasan para tokoh</small></div>
+            <div class="item"><span class="dot"></span><strong>1945-08-18</strong> <small>Pengesahan Piagam Jakarta & perumusan dasar negara</small></div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:18px">
+          <h2>Kesimpulan</h2>
+          <p>Dari berbagai gagasan tokoh bangsa, lahirlah dasar negara Indonesia yang kita kenal sebagai <strong>Pancasila</strong>. Perbedaan ide tersebut justru memperkaya pemikiran dan akhirnya dirumuskan dalam bentuk yang paling sesuai dengan kondisi bangsa Indonesia. Kesepakatan ini menjadi bukti semangat persatuan, gotong-royong, dan kebijaksanaan dalam membangun negara merdeka.</p>
+        </section> 
+         
+        <section class="card team">
+<h3>Demikianlah hasil pembahasan kami mengenai ide pendiri bangsa tentang dasar negara. Semoga apa yang kami sampaikan dapat menambah pemahaman kita semua tentang pentingnya Pancasila sebagai dasar negara dan pedoman kehidupan berbangsa serta bernegara....</h3>
+</section>
+</main>
+
+      <aside>
+        <div class="card sidebar">
+          <img class="preview-img" src="images/preview.jpg" alt="preview">
+
+          <h4>KELOMPOK 4</h4>
+          <ol style="padding-left:18px;color:var(--muted);font-size:14px">
+     <h4>Fatar</h4> 
+     <h4>irsyad</h4> 
+     <h4>Teguh</h4>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
